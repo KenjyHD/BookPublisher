@@ -1,0 +1,115 @@
+Clase folosite la tema:
+Administration
+Author
+Book
+Countries
+EditorialGroup
+FileReading
+FileWriteing
+IPublishingArtifact(interfata)
+Language
+Main
+PublishingBrand
+PublishingRetailer
+Useful
+
+
+Clasa Author
+Clasa obiectului tip autor cu get, set, constructor si variabilele corespunzatoare autorului ce retin informatia
+
+
+Clasa Book
+Analogic clasei Author, deasemenea contine metoda Publish si calendarToString
+
+    Metoda calendarToString
+    Face modificarile necesare pentru a putea printa o variabila de tip calendar ca un string
+
+
+Clasa Countries
+Contine getere, setere, constructorul si variabilele cu informatii
+
+
+Clasa EditorialGroupt
+Contine metoda Publish si alte metode de get, set si constructorul
+
+
+Clasa PublishingBrand
+Analogic clasei EditorialGroup
+
+
+Clasa Language
+Analogic clasei Countries
+
+Interfata IPublishingArtifact
+Contine metoda Publish ce va return un string cu metadatele artefactului. Este implementata de clasele
+Book, PublishingBrand si  EditorialGroup.
+
+
+Clasa abstracta Useful
+Contine metode ce cauta si returrneaza obiectul dupa ID in lista de obiecte parametru. Deasemenea metode de asociere
+a doua obiecte(ex. EditorialGroup cu Book).
+
+    Metode de cautare obiect (getByID)
+    Parcurge lista de obiecte parametru si verifica daca ID-ul parametru coincide cu ID-ul obiectului. Returneaza
+    obiectul gasit sau null.
+
+    Metode de asociere (add)
+    Verifica existenta listei de obiecte din obiectul-container. Creaza o lista-copie de obiecte cu o lungime mai
+    mare cu 1 si adauga la finalul acesta obiectul respectiv(ex. adauga Author in lista de autori din Book).'
+
+
+Clasa Administration
+Contine cele 5 metode de prelucrare a informatiilor din retailere. Deasemenea contine listele de obiecte
+PublishingRetailer si Language precum si constructorul pentru instantierea lor.
+
+    Metoda getBooksForPublishingRetailerID
+    Cauta retailerul dupa ID folosind functia getByID din clasa Useful. Dupa voi verifica toate artefactele din acesta
+    verificandule tipurile(Book, EditorialGroup sau PublishingBrand) si, folosind metodele predefinite pentru HashSet
+    voi adauga in Set toate cartile din retailer. Metodele add si addAll adauga in Set cartile doar daca acestea nu
+    exista deja in acesta. La final voi returna Set-ul convertit inapoi in lista de carti
+
+    Metoda getLanguagesForPublishingRetailerID
+    Analogic metodei anterioare, doar ca va introduce limbile unice cartilor existente in Set. La final returneaza
+    lista convertita din Set.
+
+    Metoda getCountriesForBookID
+    Voi verifica toate cartile cu ID-ul respectiv din toate retailerele si voi adauga in Set tara respectiva doar
+    daca am gasit cartea in retailerul respectiv. Returneaza lista de tari convertita din Set.
+
+    Metoda getCommonBooksForRetailerIDs
+    Apelez metoda getBooksForPublishingRetailerID pentru cele 2 retailere a caror ID-uri au fost primite parametru
+    obtinand 2 liste de carti. Dupa voi clona aceste liste in 2 Set-uri diferite si voi apela retainAll care va pastra
+    in primul Set doar cartile comune dintre cele 2 Set-uri. La final returnez lista de carti comune convertita din Set.
+
+    Metoda getAllBooksForRetailerIDs
+    Analogic metodei anterioare obtin 2 liste de carti dupa care le voi adauga pe ambele intr-un Set prin addAll.
+    In set vor fi adaugate doar cartile unice datorita functionalului lui set.addAll. LA final returnez lista de carti
+    convertita din Set.
+
+
+Clasa FileReading
+Contine metode ce citesc din fisierele.in si returneaza listele corespunzatoare fisierului din care am citit.
+Deasemenea contine metodele ce fac asocierile dintre diferite obiecte.
+
+    Metodele de instantiere (FileReading)
+    Instantiaza lista de obiecte si variabila de citire FileReader. Citeste din buffer pina la finalul fisierului cite
+    o linie si o separa dupa stringul "###". Dupa face modificarile necesare pentru a putea apela constructorul(ex.
+    face parsare la int daca constructorul are parametru int). Pe parcursul citirii din fisier se va prinde toate
+    exceptiile de tip IOException sau ParseException. La final returneaza lista de obiecte.
+
+    Metodele de asociere obiecte (FileReading)
+    Instantiaza variabile de citire, citeste din fisier linie dupa linie, fiecare linie e separata dupa stringul "###"
+    si incepe sa caute obiectele dupa ID-ul lor folosind metodele din clasa Useful. Daca a gasit aceste obiecte
+    atunci apeleaza metodele add din clasa Useful pentru a face asocierile dintre obiecte. Prinde toate exceptiile
+    de tip IOException si la final returneaza obiectul-container pentru celalalt obiect cu asocierile facute.
+
+
+Clasa FileWriter
+Contine metode de scriere in fisier a informatiilor despre obiectele returnate de metodele din Administration
+(contine obiect tip Administration si constructorul), precum si publishurile pentru toate grupurile editoriale si de publicare
+citite din fisierele .in.
+
+    Metodele de scriere in fisier
+    Initializeaza variabile de scriere in fisier si parcurge lista de obiecte returnata de functiile din
+    Administration afisand in fisier informatiile despre fiecare obiect. Pe parcursul scrierii in fisierul aflat pe
+    calea filePath, vor fi prinse toate exceptiile de tip IOException
